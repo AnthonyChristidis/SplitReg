@@ -1,5 +1,5 @@
 library(glmnet)
-library(ensembleEN)
+library(SplitReg)
 library(MASS)
 context("Compare predict method with manual computation")
 # Generate data sets, one with p<n, the other with p>n

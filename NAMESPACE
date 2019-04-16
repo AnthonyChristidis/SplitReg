@@ -1,4 +1,4 @@
-useDynLib(SplitReg)
+useDynLib(SplitReg, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
 importFrom(stats, predict)
 export(cv.SplitReg)
