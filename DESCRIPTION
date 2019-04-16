@@ -1,0 +1,21 @@
+Package: SplitReg
+Type: Package
+Title: Split Regularized Regression
+Version: 1.0.0
+Date: 2019-04-14
+Author: Anthony Christidis <anthony.christidis@stat.ubc.ca>,
+    Ezequiel Smucler <ezequiels.90@gmail.com>,
+    Ruben Zamar <ruben@stat.ubc.ca>
+Maintainer: Anthony Christidis <anthony.christidis@stat.ubc.ca>
+Description: Functions for computing split regularized estimators estimators defined in Christidis, Lakshmanan, Smucler and Zamar (2019)
+             <arXiv:1712.03561>. The procedure works on top of a given penalized linear regression estimator,
+             the Elastic Net in this implementation, by fitting it to possibly overlapping subsets of features, while at the same
+             time encouraging diversity among the subsets, to reduce the correlations between the predictions
+             that result from each fitted model. The predictions from the models are then aggregated.
+License: GPL (>= 2)
+Biarch: true
+Imports: Rcpp (>= 0.12.12)
+LinkingTo: Rcpp, RcppArmadillo
+Suggests: testthat, glmnet, MASS
+NeedsCompilation: yes
+RoxygenNote: 6.1.0
