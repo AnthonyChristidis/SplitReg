@@ -1,4 +1,4 @@
-AC_INIT(SplitReg, 1.0.0)
+AC_INIT(ensembleEN, 1.1.0)
 
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -60,7 +60,7 @@ fi
 if test "${ac_pkg_openmp_c}" = no; then
   OPENMP_CFLAGS=''
 else
-  AC_DEFINE([HAVE_OPENMP_C], [1], [Define to 1 if you have a C compiler with OpenMP support])
+  AC_DEFINE([HAVE_OPENMP_C])
 fi
 
 AC_SUBST(OPENMP_CFLAGS)
@@ -154,7 +154,7 @@ fi
 if test "${ac_pkg_openmp_cxx}" = no; then
   OPENMP_CXXFLAGS=''
 else
-  AC_DEFINE([HAVE_OPENMP_C], [1], [Define to 1 if you have a C++ compiler with OpenMP support])
+  AC_DEFINE([HAVE_OPENMP_CXX])
 fi
 
 AC_SUBST(OPENMP_CXXFLAGS)
