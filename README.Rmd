@@ -1,9 +1,21 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
 [![Build Status](https://travis-ci.com/AnthonyChristidis/SplitReg.svg?branch=master)](https://travis-ci.com/AnthonyChristidis/SplitReg) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/SplitReg)](https://cran.r-project.org/package=SplitReg) [![Downloads](http://cranlogs.r-pkg.org/badges/SplitReg)](https://cran.r-project.org/package=SplitReg)
 
 SplitReg
-========
+==========
 
 This package provides functions for computing the split regularized regression estimators defined in [Christidis, Lakshmanan, Smucler and Zamar (2019)](https://arxiv.org/abs/1712.03561).
 
@@ -13,7 +25,7 @@ This package provides functions for computing the split regularized regression e
 
 You can install the **stable** version on [R CRAN](https://cran.r-project.org/package=SplitReg).
 
-``` r
+```{r installation, eval = FALSE}
 install.packages('SplitReg', dependencies = TRUE)
 ```
 
