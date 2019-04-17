@@ -1,0 +1,5 @@
+ensembleEN 1.1.2
+==============
+
+* Add new test, fix old ones, specially the objective function test.
+* Decrease default tolerance.
