@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
+[![Build Status](https://travis-ci.com/AnthonyChristidis/SplitReg.svg?branch=master)](https://travis-ci.com/AnthonyChristidis/SplitReg) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/SplitReg)](https://cran.r-project.org/package=SplitReg) [![Downloads](http://cranlogs.r-pkg.org/badges/SplitReg)](https://cran.r-project.org/package=SplitReg)
 
 SplitReg
 ==========
@@ -10,6 +10,12 @@ This package provides functions for computing the split regularized regression e
 ------------------------------------------------------------------------
 
 ### Installation
+
+You can install the **stable** version on [R CRAN](https://cran.r-project.org/package=SplitReg).
+
+```{r installation, eval = FALSE}
+install.packages('SplitReg', dependencies = TRUE)
+```
 
 You can install the **development** version from [GitHub](https://github.com/AnthonyChristidis/SplitReg)
 
