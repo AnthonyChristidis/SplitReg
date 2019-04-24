@@ -47,6 +47,19 @@ scalar_predict <- function(index, object, newx, type){
 #' 
 #' @seealso 
 #' \code{\link{predict.cv.SplitReg}}
+#' 
+#' @examples 
+#' library(MASS)
+#' set.seed(1)
+#' beta <- c(rep(5, 5), rep(0, 45))
+#' Sigma <- matrix(0.5, 50, 50)
+#' diag(Sigma) <- 1
+#' x <- mvrnorm(50, mu = rep(0, 50), Sigma = Sigma)
+#' y <- x %*% beta + rnorm(50)
+#' fit <- cv.SplitReg(x, y, num_models=2)
+#' x.new <- mvrnorm(50, mu = rep(0, 50), Sigma = Sigma)
+#' split.predictions <- predict(fit, newx = x.new, type="response")
+#' 
 predict.cv.SplitReg <- function(object, newx, index=object$index_opt, type = c("response", "coefficients"), ...){
   if (any(!is.numeric(index), index < 0, index > dim(object$betas)[3])){
     stop("index has to be vector of positive integers, the largest of which
@@ -87,6 +100,18 @@ predict.cv.SplitReg <- function(object, newx, index=object$index_opt, type = c("
 #' 
 #' @seealso 
 #' \code{\link{cv.SplitReg}}
+#' 
+#' @examples 
+#' library(MASS)
+#' set.seed(1)
+#' beta <- c(rep(5, 5), rep(0, 45))
+#' Sigma <- matrix(0.5, 50, 50)
+#' diag(Sigma) <- 1
+#' x <- mvrnorm(50, mu = rep(0, 50), Sigma = Sigma)
+#' y <- x %*% beta + rnorm(50)
+#' fit <- cv.SplitReg(x, y, num_models=2)
+#' split.coefs <- coef(fit)
+#' 
 coef.cv.SplitReg <- function(object, index=object$index_opt,...){
   return(predict(object, index = index, type = "coefficients"))
 }

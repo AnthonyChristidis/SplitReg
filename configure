@@ -2238,13 +2238,11 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
-
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
   exit 1
 fi
-
 RBIN="${R_HOME}/bin/R"
 CC=`"${RBIN}" CMD config CC`
 CPP=`"${RBIN}" CMD config CPP`
@@ -2252,7 +2250,6 @@ CXX=`"${RBIN}" CMD config CXX`
 CXXCPP=`"${RBIN}" CMD config CXXCPP`
 CXXFLAGS=`"${RBIN}" CMD config CXXFLAGS`
 CPPFLAGS=`"${RBIN}" CMD config CPPFLAGS`
-
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -3436,7 +3433,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
-
 ################################################################################
 ##
 ## Check for necessary support by C compiler
@@ -3722,7 +3718,6 @@ fi
 
 done
 
-
 ##
 ## check for -restrict CFLAGS support
 ##
@@ -3752,7 +3747,6 @@ $as_echo "no" >&6; }
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 CFLAGS="$oldCflags"
-
 
 ##
 ## Check for OpenMP support
@@ -3823,7 +3817,6 @@ $as_echo "$ac_cv_prog_c_openmp" >&6; }
   fi
 
 
-
 # since some systems have broken OMP libraries
 # we also check that the actual package will work
 ac_pkg_openmp_c=no
@@ -3845,7 +3838,6 @@ _ACEOF
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: ${ac_pkg_openmp_c}" >&5
 $as_echo "${ac_pkg_openmp_c}" >&6; }
 fi
-
 # if ${ac_pkg_openmp_c} = "yes" then we have OMP, otherwise it will be "no"
 if test "${ac_pkg_openmp_c}" = no; then
   OPENMP_CFLAGS=''
@@ -3854,8 +3846,6 @@ else
 $as_echo "#define HAVE_OPENMP_C 1" >>confdefs.h
 
 fi
-
-
 
 ################################################################################
 ##
@@ -4016,12 +4006,10 @@ fi
 
 done
 
-
 # Check for "restrict" support
 restrict_support="no"
 
 $as_echo "#define RESTRICT /**/" >>confdefs.h
-
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ supports restrict keyword" >&5
 $as_echo_n "checking whether C++ supports restrict keyword... " >&6; }
@@ -4052,7 +4040,6 @@ $as_echo "no" >&6; }
 
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-
 if test $restrict_support != "yes"; then
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ supports __restrict__ keyword" >&5
 $as_echo_n "checking whether C++ supports __restrict__ keyword... " >&6; }
@@ -4084,7 +4071,6 @@ $as_echo "no" >&6; }
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 fi
-
 if test $restrict_support != "yes"; then
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ supports __restrict keyword" >&5
 $as_echo_n "checking whether C++ supports __restrict keyword... " >&6; }
@@ -4116,7 +4102,6 @@ $as_echo "no" >&6; }
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 fi
-
 ##
 ## check for -restrict CXXFLAGS support
 ##
@@ -4146,7 +4131,6 @@ $as_echo "no" >&6; }
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 CXXFLAGS="$oldCXXflags"
-
 
 
 ##
@@ -4218,7 +4202,6 @@ $as_echo "$ac_cv_prog_cxx_openmp" >&6; }
   fi
 
 
-
 # since some systems have broken OMP libraries
 # we also check that the actual package will work
 ac_pkg_openmp_cxx=no
@@ -4240,7 +4223,6 @@ _ACEOF
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: ${ac_pkg_openmp_cxx}" >&5
 $as_echo "${ac_pkg_openmp_cxx}" >&6; }
 fi
-
 # if ${ac_pkg_openmp_cxx} = "yes" then we have OMP, otherwise it will be "no"
 if test "${ac_pkg_openmp_cxx}" = no; then
   OPENMP_CXXFLAGS=''
@@ -4249,8 +4231,6 @@ else
 $as_echo "#define HAVE_OPENMP_C 1" >>confdefs.h
 
 fi
-
-
 
 
 ac_config_headers="$ac_config_headers src/autoconfig.h"
