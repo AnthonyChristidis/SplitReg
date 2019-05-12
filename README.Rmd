@@ -2,8 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -26,7 +24,7 @@ This package provides functions for computing the split regularized regression e
 You can install the **stable** version on [R CRAN](https://cran.r-project.org/package=SplitReg).
 
 ```{r installation, eval = FALSE}
-install.packages('SplitReg', dependencies = TRUE)
+install.packages("SplitReg", dependencies = TRUE)
 ```
 
 You can install the **development** version from [GitHub](https://github.com/AnthonyChristidis/SplitReg)
