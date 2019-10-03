@@ -3,32 +3,29 @@
 NULL
 #'
 #' @importFrom stats predict
-#' 
-#' @title Split Regularized Regression algorithm with a sparsity and diversity penalty.
+#'
+#' @title Split Regularized Regression cross-validation with a sparsity and diversity penalty.
 #' @param x Design matrix.
 #' @param y Response vector.
-#' @param lambda_sparsity Length of the grid of sparsity penalties.
-#' @param lambda_diversity Length of the grid of diversity penalties.
+#' @param num_lambdas_sparsity Length of the grid of sparsity penalties.
+#' @param num_lambdas_diversity Length of the grid of diversity penalties.
 #' @param alpha Elastic Net tuning constant: the value must be between 0 and 1. Default is 1 (Lasso).
 #' @param num_models Number of models to build.
 #' @param tolerance Tolerance parameter to stop the iterations while cycling over the models.
 #' @param max_iter Maximum number of iterations before stopping the iterations while cycling over the models.
+#' @param num_folds Number of folds for cross-validating.
+#' @param num_threads Number of threads used for parallel computation over the folds.
 
-#' @return An object of class SplitReg, a list with entries
+#' @return An object of class cv.SplitReg, a list with entries
 #' \item{betas}{Coefficients computed over the path of penalties for sparsity; the penalty for diversity is fixed at the optimal value.}
+#' \item{intercepts}{Intercepts for each of the models along the path of penalties for sparsity.}
+#' \item{index_opt}{Index of the optimal penalty parameter for sparsity.}
+#' \item{lambda_sparsity_opt}{Optimal penalty parameter for sparsity.}
+#' \item{lambda_diversity_opt}{Optimal penalty parameter for diversity.}
+#' \item{lambdas_sparsity}{Grid of sparsity parameters.}
+#' \item{lambdas_diversity}{Grid of diversity parameters.}
+#' \item{cv_mse_opt}{Optimal CV MSE.}
 #' \item{call}{The matched call.}
-
-# void Ensemble_EN_Solver(
-# const arma::mat & x,
-# const arma::vec & y,
-# const double & lambda_sparsity,
-# const double & lambda_diversity,
-# const double & alpha,
-# const arma::uword & num_groups,
-# const double & tolerance,
-# const arma::uword & max_iter,
-# arma::mat & current_res,
-# arma::mat & beta)
 
 #' 
 #' @description
@@ -50,7 +47,7 @@ NULL
 #' The predictors and the response are standardized to zero mean and unit variance before any computations are performed.
 #' The final output is in the original scales.
 #' 
-#' @seealso \code{\link{predict.SplitReg}}, \code{\link{coef.SplitReg}}
+#' @seealso \code{\link{predict.cv.SplitReg}}, \code{\link{coef.cv.SplitReg}}
 #' 
 #' @examples 
 #' library(MASS)
@@ -60,13 +57,13 @@ NULL
 #' diag(Sigma) <- 1
 #' x <- mvrnorm(50, mu = rep(0, 50), Sigma = Sigma)
 #' y <- x %*% beta + rnorm(50)
-#' fit <- SplitReg(x, y, num_models=2)
+#' fit <- cv.SplitReg(x, y, num_models=2)
 #' coefs <- predict(fit, type="coefficients")
 #' 
 #' @export
 
-SplitReg <- function(x, y, alpha = 1, num_models = 10, lambda_diversity = 0, lambda_sparsity = 0,
-                     tolerance = 1e-8, max_iter = 1e5){
+cv.SplitReg <- function(x, y, num_lambdas_sparsity = 100, num_lambdas_diversity = 100, alpha = 1, num_models = 10,
+                       tolerance = 1e-8, max_iter = 1e5, num_folds = 10, num_threads = 1){
   # Some sanity checks on the input
   if (all(!inherits(x, "matrix"), !inherits(x, "data.frame"))) {
     stop("x should belong to one of the following classes: matrix, data.frame")
@@ -109,15 +106,15 @@ SplitReg <- function(x, y, alpha = 1, num_models = 10, lambda_diversity = 0, lam
   } else if (any(!num_models == floor(num_models), num_models <= 1)) {
     stop("num_models should be an integer, greater than one")
   }
-  if (!inherits(lambda_diversity, "numeric")) {
-    stop("lambda_diversity should be numeric")
-  } else if (lambda_diversity < 0) {
-    stop("lambda_diversity greater or equal to 0")
+  if (!inherits(num_lambdas_sparsity, "numeric")) {
+    stop("num_lambdas_sparsity should be numeric")
+  } else if (any(!num_lambdas_sparsity == floor(num_lambdas_sparsity), num_lambdas_sparsity <= 0)) {
+    stop("num_lambdas_sparsity should be a positive integer")
   }
-  if (!inherits(lambda_sparsity, "numeric")) {
-    stop("lambda_sparsity should be numeric")
-  } else if (lambda_sparsity < 0) {
-    stop("lambda_sparsity greater or equal to 0")
+  if (!inherits(num_lambdas_diversity, "numeric")) {
+    stop("num_lambdas_diversity should be numeric")
+  } else if (any(!num_lambdas_diversity == floor(num_lambdas_diversity), num_lambdas_diversity <= 0)) {
+    stop("num_lambdas_diversity should be a positive integer")
   }
   
   # Shuffle the data
@@ -126,9 +123,11 @@ SplitReg <- function(x, y, alpha = 1, num_models = 10, lambda_diversity = 0, lam
   x.permutation <- x[random.permutation, ]
   y.permutation <- y[random.permutation]
   
-  output <- Fixed_Solver(x.permutation, y.permutation, lambda_sparsity, lambda_diversity, alpha, num_models, 
-                         tolerance, max_iter)
+  output <- Main_Ensemble_EN(x.permutation, y.permutation, num_lambdas_sparsity, num_lambdas_diversity, alpha, num_models, 
+                             tolerance, max_iter, num_folds, num_threads)
   fn_call <- match.call()
-  output <- construct.SplitReg(output, fn_call, x, y)
+  output <- construct.cv.SplitReg(output, fn_call, x, y)
   return(output)
 }
+
+

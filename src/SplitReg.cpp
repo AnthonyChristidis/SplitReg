@@ -433,6 +433,92 @@ arma::vec CV_Ensemble_EN(const arma::mat & x,
   return(out);
 }
 
+//' @export
+// [[Rcpp::export]]
+List Fixed_Solver(const arma::mat & x,
+                  const arma::vec & y,
+                  const double & lambda_sparsity,
+                  const double & lambda_diversity,
+                  const double & alpha,
+                  const arma::uword & num_groups,
+                  const double & tolerance,
+                  const arma::uword & max_iter){
+  // Solves ensembles EN function for fixed penalty terms. Assumes x and y
+  // have been centered / scaled. output is not de-standardized
+  // Input
+  // x: design matrix, centered to zero mean and scaled to unit variance
+  // y: responses, centered to zero mean and scale to unit variance
+  // lambdas_sparsity: penalty parameter for individual coefficients
+  // lambdas_diversity: penalty parameter for interactions between groups
+  // alpha: Elastic Net tuning constant
+  // num_groups: number of groups
+  // tolerance: tolerance parameter to stop the iterations
+  // max_iter: maximum number of iterations before stopping the iterations over the groups
+  //   
+  // # Output
+  // beta: slopes
+  
+  // Centering and Scaling data
+  arma::mat x_std = x;
+  arma::vec y_std = y;
+  arma::rowvec mu_x = mean(x);
+  arma::rowvec sd_x = stddev(x, 1);
+  double mu_y = mean(y);
+  double sd_y = stddev(y, 1);
+  x_std.each_row() -= mu_x;
+  x_std.each_row() /= sd_x;
+  y_std = y_std - mu_y;
+  y_std /= sd_y;
+  
+  // Initialization of parameters for the solution search
+  arma::uword n = x_std.n_rows;
+  arma::uword p = x_std.n_cols;
+  arma::mat beta = zeros(p, num_groups);
+  arma::mat current_res = zeros(n, num_groups);
+  current_res.each_col() = y_std;
+  
+  arma::mat thresh = zeros(p, 1);
+  double stdz = 0;
+  double conv_crit = 1;
+  arma::uword iteration = 0;
+  arma::mat beta_old = zeros(p, num_groups);
+  
+  beta_old = beta;
+  stdz = 1 + lambda_sparsity * (1 - alpha);
+  // Do one cycle to start with
+  iteration += 1;
+  for (arma::uword group = 0; group < num_groups; group++){
+    // Update penalty
+    thresh = lambda_sparsity * alpha + lambda_diversity * beta_weights(beta, group);
+    // Do one CD cycle
+    Cycling(x_std, y_std, thresh, stdz, group, current_res, beta);
+  }
+  beta_old = beta;
+  // cout << '\n' << objective_new << '\n';
+  while((conv_crit > tolerance) & (iteration <= max_iter)){
+    iteration += 1;
+    for (arma::uword group = 0; group < num_groups; group++){
+      // Update penalty
+      thresh = lambda_sparsity * alpha + lambda_diversity * beta_weights(beta, group);
+      // Do one CD cycle
+      Cycling(x_std, y_std, thresh, stdz, group, current_res, beta);
+    }
+    conv_crit = square(mean(beta_old, 1) - mean(beta, 1)).max();
+    // objective_old = objective_new;
+    beta_old = beta;
+  }
+  // De-standardization to original data
+  // sd_x is not the sd of x
+  sd_x = sd_x / sd_y;
+  beta.each_col() /= (sd_x.t());
+  
+  // Return the beta coefficients
+  List ret;
+  ret["betas"] = beta;
+  return(ret);
+}
+
+
 // [[Rcpp::export]]
 List Main_Ensemble_EN(const arma::mat & x_perm,
                       const arma::vec & y_perm,

@@ -17,6 +17,11 @@ CV_Ensemble_EN <- function(x, y, which_lambda, lambdas_grid, lambda_fixed, alpha
     .Call(`_SplitReg_CV_Ensemble_EN`, x, y, which_lambda, lambdas_grid, lambda_fixed, alpha, num_groups, num_folds, tolerance, max_iter, num_threads)
 }
 
+#' @export
+Fixed_Solver <- function(x, y, lambda_sparsity, lambda_diversity, alpha, num_groups, tolerance, max_iter) {
+    .Call(`_SplitReg_Fixed_Solver`, x, y, lambda_sparsity, lambda_diversity, alpha, num_groups, tolerance, max_iter)
+}
+
 Main_Ensemble_EN <- function(x_perm, y_perm, num_lambdas_sparsity, num_lambdas_diversity, alpha, num_groups, tolerance, max_iter, num_folds, num_threads) {
     .Call(`_SplitReg_Main_Ensemble_EN`, x_perm, y_perm, num_lambdas_sparsity, num_lambdas_diversity, alpha, num_groups, tolerance, max_iter, num_folds, num_threads)
 }

@@ -60,6 +60,8 @@ scalar_predict <- function(index, object, newx, type){
 #' x.new <- mvrnorm(50, mu = rep(0, 50), Sigma = Sigma)
 #' split.predictions <- predict(fit, newx = x.new, type="response")
 #' 
+#' @export
+#' 
 predict.cv.SplitReg <- function(object, newx, index=object$index_opt, type = c("response", "coefficients"), ...){
   if (any(!is.numeric(index), index < 0, index > dim(object$betas)[3])){
     stop("index has to be vector of positive integers, the largest of which
@@ -111,6 +113,8 @@ predict.cv.SplitReg <- function(object, newx, index=object$index_opt, type = c("
 #' y <- x %*% beta + rnorm(50)
 #' fit <- cv.SplitReg(x, y, num_models=2)
 #' split.coefs <- coef(fit)
+#' 
+#' @export
 #' 
 coef.cv.SplitReg <- function(object, index=object$index_opt,...){
   return(predict(object, index = index, type = "coefficients"))

@@ -75,6 +75,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Fixed_Solver
+List Fixed_Solver(const arma::mat& x, const arma::vec& y, const double& lambda_sparsity, const double& lambda_diversity, const double& alpha, const arma::uword& num_groups, const double& tolerance, const arma::uword& max_iter);
+RcppExport SEXP _SplitReg_Fixed_Solver(SEXP xSEXP, SEXP ySEXP, SEXP lambda_sparsitySEXP, SEXP lambda_diversitySEXP, SEXP alphaSEXP, SEXP num_groupsSEXP, SEXP toleranceSEXP, SEXP max_iterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const double& >::type lambda_sparsity(lambda_sparsitySEXP);
+    Rcpp::traits::input_parameter< const double& >::type lambda_diversity(lambda_diversitySEXP);
+    Rcpp::traits::input_parameter< const double& >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< const arma::uword& >::type num_groups(num_groupsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type tolerance(toleranceSEXP);
+    Rcpp::traits::input_parameter< const arma::uword& >::type max_iter(max_iterSEXP);
+    rcpp_result_gen = Rcpp::wrap(Fixed_Solver(x, y, lambda_sparsity, lambda_diversity, alpha, num_groups, tolerance, max_iter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // Main_Ensemble_EN
 List Main_Ensemble_EN(const arma::mat& x_perm, const arma::vec& y_perm, const arma::uword num_lambdas_sparsity, const arma::uword num_lambdas_diversity, const double& alpha, const arma::uword& num_groups, const double& tolerance, const arma::uword& max_iter, const arma::uword& num_folds, const arma::uword& num_threads);
 RcppExport SEXP _SplitReg_Main_Ensemble_EN(SEXP x_permSEXP, SEXP y_permSEXP, SEXP num_lambdas_sparsitySEXP, SEXP num_lambdas_diversitySEXP, SEXP alphaSEXP, SEXP num_groupsSEXP, SEXP toleranceSEXP, SEXP max_iterSEXP, SEXP num_foldsSEXP, SEXP num_threadsSEXP) {
@@ -101,6 +119,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_SplitReg_Prediction_Grid", (DL_FUNC) &_SplitReg_Prediction_Grid, 4},
     {"_SplitReg_Ensemble_EN_Grid", (DL_FUNC) &_SplitReg_Ensemble_EN_Grid, 9},
     {"_SplitReg_CV_Ensemble_EN", (DL_FUNC) &_SplitReg_CV_Ensemble_EN, 11},
+    {"_SplitReg_Fixed_Solver", (DL_FUNC) &_SplitReg_Fixed_Solver, 8},
     {"_SplitReg_Main_Ensemble_EN", (DL_FUNC) &_SplitReg_Main_Ensemble_EN, 10},
     {NULL, NULL, 0}
 };
