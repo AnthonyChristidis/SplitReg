@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 rm -Rf autom4te.cache
 rm config.log
