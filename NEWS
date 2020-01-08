@@ -1,2 +1,6 @@
-SplitReg 1.0.0
-===============
+# RPEIF 1.0.0
+* Initial stable release of package.
+
+# SplitReg 1.0.1
+* Fix CRAN issues.
+
