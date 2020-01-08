@@ -4,8 +4,13 @@
 \alias{predict.cv.SplitReg}
 \title{Make predictions from a cv.SplitReg object.}
 \usage{
-\method{predict}{cv.SplitReg}(object, newx, index = object$index_opt,
-  type = c("response", "coefficients"), ...)
+\method{predict}{cv.SplitReg}(
+  object,
+  newx,
+  index = object$index_opt,
+  type = c("response", "coefficients"),
+  ...
+)
 }
 \arguments{
 \item{object}{Fitted cv.SplitReg object.}

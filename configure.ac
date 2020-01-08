@@ -1,4 +1,4 @@
-AC_INIT(SplitReg, 1.0.0)
+AC_INIT(SplitReg, 1.0.1)
 
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -16,7 +16,7 @@ AC_LANG(C++)
 AC_CHECK_HEADERS(stdint.h inttypes.h limits.h climits)
 
 ## ----------------------------------------------------------------
-# Check if unsigned long long is supported (its not standard yet)
+# Check if unsigned long long is supported (it's not standard yet)
 ## ----------------------------------------------------------------
 
 AC_COMPILE_IFELSE([
