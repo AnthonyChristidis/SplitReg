@@ -1,4 +1,4 @@
-AC_INIT(SplitReg, 1.0.0)
+AC_INIT(SplitReg, 1.0.1)
 
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -15,7 +15,10 @@ AC_LANG(C++)
 
 AC_CHECK_HEADERS(stdint.h inttypes.h limits.h climits)
 
-# Check if unsigned long long is supported (its not standard yet)
+## ----------------------------------------------------------------
+# Check if unsigned long long is supported (it's not standard yet)
+## ----------------------------------------------------------------
+
 AC_COMPILE_IFELSE([
 	AC_LANG_SOURCE([[int main() {  unsigned long long x = 100LL; return 0; }]])
 	],
@@ -26,7 +29,10 @@ AC_COMPILE_IFELSE([
 	[AC_MSG_RESULT([Type unsigned long long is not supported])]
 )
 
+## -----------------------------------------------------------
 # Check if support for uint16_t and uint8_t is complete
+## -----------------------------------------------------------
+
 if test "$ac_cv_header_stdint_h" == yes; then
 	AC_COMPILE_IFELSE([
 		AC_LANG_PROGRAM([[#define __STDC_LIMIT_MACROS 1
@@ -60,7 +66,10 @@ fi
 # 	AC_MSG_FAILURE([no suitable integral type available])
 # fi;
 
+## -----------------------------------------------------------
 # Check for builtin function to "count trailing zeros" (ctz)
+## -----------------------------------------------------------
+
 AC_COMPILE_IFELSE([
 	AC_LANG_SOURCE([[int main() {  int x = __builtin_ctzl(2UL); return 0; }]])
 	],
@@ -84,7 +93,10 @@ AC_COMPILE_IFELSE([
 AC_CHECK_FUNCS(ffsl)
 AC_CHECK_FUNCS(ffsll)
 
+## -----------------------------------------------------------
 # Check for builtin function to "count set bits" (popcountl)
+## -----------------------------------------------------------
+
 AC_COMPILE_IFELSE([
 	AC_LANG_SOURCE([[int main() {  int x = __builtin_popcountl(10UL); return 0; }]])
 ],
@@ -105,7 +117,10 @@ AC_COMPILE_IFELSE([
 	[AC_MSG_RESULT([No builtin popcount method (for unsigned long long)])]
 )
 
+## --------------------------
 # Check for pthreads support
+## --------------------------
+
 oldCFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -pthread"
 AC_CHECK_HEADERS(pthread.h)
@@ -118,9 +133,10 @@ AC_CONFIG_HEADERS([src/autoconfig.h])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 
-##
+## --------------------------
 ## Check for OpenMP support
-##
+## --------------------------
+
 AC_OPENMP
 # since some systems have broken OMP libraries
 # we also check that the actual package will work

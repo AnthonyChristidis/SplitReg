@@ -1,8 +1,8 @@
 /* confdefs.h */
 #define PACKAGE_NAME "SplitReg"
 #define PACKAGE_TARNAME "splitreg"
-#define PACKAGE_VERSION "1.0.0"
-#define PACKAGE_STRING "splitreg 1.0.0"
+#define PACKAGE_VERSION "1.0.1"
+#define PACKAGE_STRING "splitreg 1.0.1"
 #define PACKAGE_BUGREPORT ""
 #define PACKAGE_URL ""
 #define STDC_HEADERS 1
