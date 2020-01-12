@@ -98,5 +98,5 @@ test_that(paste0("Equality over diversity for p>n"), {
                                           alpha=alpha, num_groups=num_groups, num_folds=num_folds, tolerance=1e-11, max_iter=1e10,num_threads=1)
     difs[ind] <- abs(1 - cv_sparse[k]/cv_div[2])
   }
-  expect_lte(max(difs), 2e-2)
+  expect_lte(max(difs), 1e-1)
 })
