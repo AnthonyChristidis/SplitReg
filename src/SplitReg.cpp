@@ -148,7 +148,7 @@ void Ensemble_EN_Solver(const arma::mat & x,
                         const double & alpha,
                         const arma::uword & num_groups,
                         const double & tolerance,
-                        const arma::uword & max_iter,
+                        unsigned long & max_iter,
                         arma::mat & current_res,
                         arma::mat & beta){
   // Solves ensembles EN function for fixed penalty terms. Assumes x and y
@@ -208,7 +208,7 @@ arma::cube Ensemble_EN_Grid(const arma::mat & x,
                             const double & alpha,
                             const arma::uword & num_groups,
                             const double & tolerance,
-                            const arma::uword & max_iter){
+                            unsigned long & max_iter){
   // Computes Ensemble EN over a path of penalty values
   //   
   // Input
@@ -309,7 +309,7 @@ arma::vec Lambdas_Diversity_Grid(const arma::mat & x,
                                  const double & eps,
                                  const arma::uword & num_groups,
                                  const double & tolerance,
-                                 const arma::uword & max_iter){
+                                 unsigned long & max_iter){
   // Finds a reasonable grid of lambda_diversity by attempting to find the smallest lambda_diversity that kills 
   // all interactions at lambda_sparsity_min.
   // May be improved in the future.   
@@ -389,7 +389,7 @@ arma::vec CV_Ensemble_EN(const arma::mat & x,
                          const arma::uword & num_groups,
                          const arma::uword & num_folds,
                          const double & tolerance,
-                         const arma::uword & max_iter,
+                         unsigned long & max_iter,
                          const arma::uword & num_threads){
   // Finds CV MSE for Ensemble EN with given penalty parameters
   // Input
@@ -441,7 +441,7 @@ List Main_Ensemble_EN(const arma::mat & x_perm,
                       const double & alpha,
                       const arma::uword & num_groups,
                       const double & tolerance,
-                      const arma::uword & max_iter,
+                      unsigned long & max_iter,
                       const arma::uword & num_folds,
                       const arma::uword & num_threads){
   // Finds optimal penalties for a Ensemble EN in a sequential fashion. 

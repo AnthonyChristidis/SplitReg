@@ -36,7 +36,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // Ensemble_EN_Grid
-arma::cube Ensemble_EN_Grid(const arma::mat& x, const arma::vec& y, const int& which_lambda, const arma::vec& lambdas_grid, const double& lambda_fixed, const double& alpha, const arma::uword& num_groups, const double& tolerance, const arma::uword& max_iter);
+arma::cube Ensemble_EN_Grid(const arma::mat& x, const arma::vec& y, const int& which_lambda, const arma::vec& lambdas_grid, const double& lambda_fixed, const double& alpha, const arma::uword& num_groups, const double& tolerance, unsigned long& max_iter);
 RcppExport SEXP _SplitReg_Ensemble_EN_Grid(SEXP xSEXP, SEXP ySEXP, SEXP which_lambdaSEXP, SEXP lambdas_gridSEXP, SEXP lambda_fixedSEXP, SEXP alphaSEXP, SEXP num_groupsSEXP, SEXP toleranceSEXP, SEXP max_iterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -49,13 +49,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_groups(num_groupsSEXP);
     Rcpp::traits::input_parameter< const double& >::type tolerance(toleranceSEXP);
-    Rcpp::traits::input_parameter< const arma::uword& >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< unsigned long& >::type max_iter(max_iterSEXP);
     rcpp_result_gen = Rcpp::wrap(Ensemble_EN_Grid(x, y, which_lambda, lambdas_grid, lambda_fixed, alpha, num_groups, tolerance, max_iter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CV_Ensemble_EN
-arma::vec CV_Ensemble_EN(const arma::mat& x, const arma::vec& y, const arma::uword& which_lambda, const arma::vec& lambdas_grid, const double& lambda_fixed, const double& alpha, const arma::uword& num_groups, const arma::uword& num_folds, const double& tolerance, const arma::uword& max_iter, const arma::uword& num_threads);
+arma::vec CV_Ensemble_EN(const arma::mat& x, const arma::vec& y, const arma::uword& which_lambda, const arma::vec& lambdas_grid, const double& lambda_fixed, const double& alpha, const arma::uword& num_groups, const arma::uword& num_folds, const double& tolerance, unsigned long& max_iter, const arma::uword& num_threads);
 RcppExport SEXP _SplitReg_CV_Ensemble_EN(SEXP xSEXP, SEXP ySEXP, SEXP which_lambdaSEXP, SEXP lambdas_gridSEXP, SEXP lambda_fixedSEXP, SEXP alphaSEXP, SEXP num_groupsSEXP, SEXP num_foldsSEXP, SEXP toleranceSEXP, SEXP max_iterSEXP, SEXP num_threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -69,14 +69,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::uword& >::type num_groups(num_groupsSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_folds(num_foldsSEXP);
     Rcpp::traits::input_parameter< const double& >::type tolerance(toleranceSEXP);
-    Rcpp::traits::input_parameter< const arma::uword& >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< unsigned long& >::type max_iter(max_iterSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_threads(num_threadsSEXP);
     rcpp_result_gen = Rcpp::wrap(CV_Ensemble_EN(x, y, which_lambda, lambdas_grid, lambda_fixed, alpha, num_groups, num_folds, tolerance, max_iter, num_threads));
     return rcpp_result_gen;
 END_RCPP
 }
 // Main_Ensemble_EN
-List Main_Ensemble_EN(const arma::mat& x_perm, const arma::vec& y_perm, const arma::uword num_lambdas_sparsity, const arma::uword num_lambdas_diversity, const double& alpha, const arma::uword& num_groups, const double& tolerance, const arma::uword& max_iter, const arma::uword& num_folds, const arma::uword& num_threads);
+List Main_Ensemble_EN(const arma::mat& x_perm, const arma::vec& y_perm, const arma::uword num_lambdas_sparsity, const arma::uword num_lambdas_diversity, const double& alpha, const arma::uword& num_groups, const double& tolerance, unsigned long& max_iter, const arma::uword& num_folds, const arma::uword& num_threads);
 RcppExport SEXP _SplitReg_Main_Ensemble_EN(SEXP x_permSEXP, SEXP y_permSEXP, SEXP num_lambdas_sparsitySEXP, SEXP num_lambdas_diversitySEXP, SEXP alphaSEXP, SEXP num_groupsSEXP, SEXP toleranceSEXP, SEXP max_iterSEXP, SEXP num_foldsSEXP, SEXP num_threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -88,7 +88,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_groups(num_groupsSEXP);
     Rcpp::traits::input_parameter< const double& >::type tolerance(toleranceSEXP);
-    Rcpp::traits::input_parameter< const arma::uword& >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< unsigned long& >::type max_iter(max_iterSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_folds(num_foldsSEXP);
     Rcpp::traits::input_parameter< const arma::uword& >::type num_threads(num_threadsSEXP);
     rcpp_result_gen = Rcpp::wrap(Main_Ensemble_EN(x_perm, y_perm, num_lambdas_sparsity, num_lambdas_diversity, alpha, num_groups, tolerance, max_iter, num_folds, num_threads));
