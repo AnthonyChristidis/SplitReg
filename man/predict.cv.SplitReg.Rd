@@ -21,7 +21,7 @@
 
 \item{type}{Either "response" for predicted values or "coefficients" for the estimated coefficients.}
 
-\item{...}{Additional arguments for compatibility}
+\item{...}{Additional arguments for compatibility.}
 }
 \value{
 Either a matrix with predictions or a vector of coefficients

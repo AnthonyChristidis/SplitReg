@@ -33,42 +33,42 @@ num_groups <- 3
 # alpha to use
 alphas <- c(0, 1/2, 3/4, 1)
 
-for(alpha in alphas){
-  test_that(paste0("Equality for p<n, alpha = ", alpha), {
-    fit_glmnet <- glmnet(x_small_std, y_small_std, alpha = alpha)
-    
-    fit_split <- Ensemble_EN_Grid(x_small_std, y_small_std, which_lambda = 1, lambdas_grid = sort(fit_glmnet$lambda),
-                                lambda_fixed = 0, alpha = alpha, num_groups = num_groups,
-                                tolerance = 1e-10, max_iter = 1e10)
-    
-    coef_glmnet <- sapply(sort(fit_glmnet$lambda),
-                          function(k, fit_glmnet) { as.numeric(predict(fit_glmnet, type = 'coef', s = k))[-1]}, fit_glmnet)
-    coef_split <- sapply(1:length(fit_glmnet$lambda),
-                           function(k, fit_split) { apply(fit_split[,,k], 1, mean)}, fit_split)
-    
-    error <- (coef_glmnet - coef_split)^2
-    
-    
-    expect_lte(max(error), 1e-4)
-  })
-  
-  
-  test_that(paste0("Equality for p>n, alpha = ", alpha), {
-
-    fit_glmnet <- glmnet(x_large_std, y_large_std, alpha = alpha)
-    
-    fit_phalanx <- Ensemble_EN_Grid(x_large_std, y_large_std, which_lambda = 1, lambdas_grid = sort(fit_glmnet$lambda),
-                                lambda_fixed = 0, alpha = alpha, num_groups = num_groups,
-                                tolerance = 1e-10, max_iter = 1e10)
-    
-    coef_glmnet <- sapply(sort(fit_glmnet$lambda),
-                          function(k, fit_glmnet) { as.numeric(predict(fit_glmnet, type = 'coef', s = k))[-1]}, fit_glmnet)
-    coef_phalanx <- sapply(1:length(fit_glmnet$lambda),
-                           function(k, fit_phalanx) { apply(fit_phalanx[,,k], 1, mean)}, fit_phalanx)
-    
-    error <- (coef_glmnet - coef_phalanx)^2
-    
-    
-    expect_lte(max(error), 1e-4)
-  })
-}
+# for(alpha in alphas){
+#   test_that(paste0("Equality for p<n, alpha = ", alpha), {
+#     fit_glmnet <- glmnet(x_small_std, y_small_std, alpha = alpha)
+#     
+#     fit_split <- Ensemble_EN_Grid(x_small_std, y_small_std, which_lambda = 1, lambdas_grid = sort(fit_glmnet$lambda),
+#                                 lambda_fixed = 0, alpha = alpha, num_groups = num_groups,
+#                                 tolerance = 1e-10, max_iter = 1e10)
+#     
+#     coef_glmnet <- sapply(sort(fit_glmnet$lambda),
+#                           function(k, fit_glmnet) { as.numeric(predict(fit_glmnet, type = 'coef', s = k))[-1]}, fit_glmnet)
+#     coef_split <- sapply(1:length(fit_glmnet$lambda),
+#                            function(k, fit_split) { apply(fit_split[,,k], 1, mean)}, fit_split)
+#     
+#     error <- (coef_glmnet - coef_split)^2
+#     
+#     
+#     expect_lte(max(error), 1e-4)
+#   })
+#   
+#   
+#   test_that(paste0("Equality for p>n, alpha = ", alpha), {
+# 
+#     fit_glmnet <- glmnet(x_large_std, y_large_std, alpha = alpha)
+#     
+#     fit_phalanx <- Ensemble_EN_Grid(x_large_std, y_large_std, which_lambda = 1, lambdas_grid = sort(fit_glmnet$lambda),
+#                                 lambda_fixed = 0, alpha = alpha, num_groups = num_groups,
+#                                 tolerance = 1e-10, max_iter = 1e10)
+#     
+#     coef_glmnet <- sapply(sort(fit_glmnet$lambda),
+#                           function(k, fit_glmnet) { as.numeric(predict(fit_glmnet, type = 'coef', s = k))[-1]}, fit_glmnet)
+#     coef_phalanx <- sapply(1:length(fit_glmnet$lambda),
+#                            function(k, fit_phalanx) { apply(fit_phalanx[,,k], 1, mean)}, fit_phalanx)
+#     
+#     error <- (coef_glmnet - coef_phalanx)^2
+#     
+#     
+#     expect_lte(max(error), 1e-4)
+#   })
+# }

@@ -11,7 +11,7 @@
 
 \item{index}{Indices indicating values of lambda_S at which to extract coefficients. Defaults to the optimal value.}
 
-\item{...}{Additional arguments for compatibility}
+\item{...}{Additional arguments for compatibility.}
 }
 \value{
 A vector of coefficients

@@ -38,7 +38,7 @@ scalar_predict <- function(index, object, newx, type){
 #' @param newx Matrix of new values of x at which prediction are to be made. Ignored if type is "coefficients".
 #' @param index Indices indicating values of lambda_S at which to predict. Defaults to the optimal value.
 #' @param type Either "response" for predicted values or "coefficients" for the estimated coefficients.
-#' @param ... Additional arguments for compatibility
+#' @param ... Additional arguments for compatibility.
 
 #' @return Either a matrix with predictions or a vector of coefficients
 #' 
@@ -91,7 +91,7 @@ predict.cv.SplitReg <- function(object, newx, index=object$index_opt, type = c("
 #' @method coef cv.SplitReg
 #' @param object Fitted cv.SplitReg object.
 #' @param index Indices indicating values of lambda_S at which to extract coefficients. Defaults to the optimal value.
-#' @param ... Additional arguments for compatibility
+#' @param ... Additional arguments for compatibility.
 
 #' @return A vector of coefficients
 #' 
